@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2027 — A Vida que Quero Construir</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Tokens ===== */
+:root{--bg:#f6f1e7;--card:#fffdf8;--sand:#e9dfca;--sage:#8b9b7c;--pine:#2f4a3c;--terra:#bf7b64;--rose:#d9aa9c;--ink:#3a3029;--mut:#7d7062;--r:22px;--sh:0 6px 24px rgba(70,55,35,.07)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 'Nunito Sans',system-ui,sans-serif;display:flex;min-height:100vh}
+h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif;font-weight:600;letter-spacing:-.01em}
+button,input,select,textarea{font:inherit;color:inherit}
+aside{width:250px;padding:28px 20px;position:sticky;top:0;height:100vh;background:var(--sand);display:flex;flex-direction:column;gap:6px;overflow:auto}
+aside .logo{font-family:'Fraunces',Georgia,serif;font-size:1.5rem;line-height:1.1;margin-bottom:18px;color:var(--pine)}
+aside .logo small{display:block;font:italic 400 .85rem 'Fraunces',serif;color:var(--mut);margin-top:4px}
+.nv{background:none;border:0;text-align:left;padding:10px 14px;border-radius:14px;cursor:pointer;color:var(--ink);transition:.2s}
+.nv:hover{background:#f0e8d6}.nv.on{background:var(--pine);color:#fff}
+.bk{margin-top:auto;display:flex;flex-direction:column;gap:6px;padding-top:16px}
+main{flex:1;padding:36px clamp(16px,4vw,52px) 80px;max-width:1180px}
+.card{background:var(--card);border-radius:var(--r);padding:24px;box-shadow:var(--sh)}
+.grid{display:grid;gap:18px}.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.hero{padding:34px 36px;background:var(--pine);color:#f6f1e7;border-radius:28px;position:relative;overflow:hidden;margin-bottom:22px}
+.hero:after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:var(--sage);opacity:.35}
+.hero h1{font-size:clamp(1.7rem,4vw,2.5rem);position:relative}.hero p{position:relative;opacity:.9;max-width:560px}
+.pill{display:inline-block;padding:4px 12px;border-radius:99px;background:rgba(255,255,255,.18);font-size:.85rem;margin:10px 8px 10px 0;position:relative}
+.hero .ph{font-family:'Fraunces',serif;font-style:italic;font-size:1.2rem;margin-top:8px}
+.big{font-family:'Fraunces',serif;font-size:2.1rem;line-height:1.1;color:var(--pine)}.sm{font-size:.88rem;color:var(--mut)}
+h2{font-size:1.5rem;margin:30px 0 14px}h3{font-size:1.15rem;margin-bottom:8px}
+.bar{height:9px;background:var(--sand);border-radius:9px;overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;border-radius:9px;background:var(--sage);transition:width .6s}
+.btn{border:0;border-radius:99px;padding:9px 18px;cursor:pointer;background:var(--pine);color:#fff;transition:.2s}.btn:hover{transform:translateY(-1px);filter:brightness(1.1)}
+.btn.s{background:var(--sand);color:var(--ink)}.btn.t{background:none;color:var(--terra);padding:6px 10px}.btn.xs{padding:5px 12px;font-size:.85rem}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.sp{justify-content:space-between}
+.chip{border:0;background:var(--sand);padding:6px 14px;border-radius:99px;cursor:pointer;font-size:.9rem}.chip.on{background:var(--terra);color:#fff}
+.pc{cursor:pointer;transition:.25s;border-top:5px solid var(--c)}.pc:hover{transform:translateY(-3px)}
+.tag{font-size:.78rem;padding:2px 10px;border-radius:99px;background:var(--sand);color:var(--mut)}.tag.neu{background:#efe2cc;color:#8a6a45}
+.ov{position:fixed;inset:0;background:rgba(58,48,41,.45);display:flex;justify-content:center;align-items:flex-start;padding:30px 14px;overflow:auto;z-index:9;animation:f .2s}
+@keyframes f{from{opacity:0}}
+.mod{background:var(--card);border-radius:26px;padding:28px;width:min(560px,100%);display:grid;gap:12px}
+label{font-size:.88rem;color:var(--mut);display:grid;gap:4px}
+input,select,textarea{border:1.5px solid var(--sand);background:#fff;border-radius:12px;padding:9px 12px;width:100%}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--sage);outline-offset:1px}
+textarea{min-height:80px;resize:vertical}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--pine);color:#fff;padding:10px 22px;border-radius:99px;transition:.35s;z-index:20}#toast.on{transform:translateX(-50%)}
+.ch{display:flex;align-items:flex-end;gap:6px;height:120px;margin-top:10px}.ch div{flex:1;text-align:center;font-size:.68rem;color:var(--mut);display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.ch b{display:block;background:var(--sage);border-radius:8px 8px 3px 3px;min-height:2px}.ch b.neg{background:var(--rose)}
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center;font-size:.75rem;color:var(--mut)}
+.dy{border:1.5px solid var(--sand);background:#fff;border-radius:12px;padding:8px 0;cursor:pointer}.dy.on{background:var(--sage);border-color:var(--sage);color:#fff}
+.tl{border-left:2px solid var(--sand);padding-left:18px;margin-left:6px}.tl .it{position:relative;padding:6px 0 12px}.tl .it:before{content:"";position:absolute;left:-25px;top:12px;width:12px;height:12px;border-radius:50%;background:var(--terra)}
+.scrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}.scrap .card{transform:rotate(-1deg);background:#fbf3e4}.scrap .card:nth-child(even){transform:rotate(1.2deg);background:#f4ebe0}
+.tk{display:flex;gap:8px;align-items:center;padding:4px 0}.tk input{width:auto}
+.empty{color:var(--mut);font-style:italic;padding:10px 0}
+@media(max-width:820px){body{flex-direction:column}aside{width:100%;height:auto;position:static;flex-direction:row;flex-wrap:wrap;padding:14px}aside .logo{width:100%;margin:0}.bk{flex-direction:row;margin:0;padding:0;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<aside id="nav"></aside>
+<main id="app"></main>
+<div id="md"></div><div id="toast"></div>
+<input type="file" id="imp" accept=".json" hidden>
+<script>
+/* ================= DADOS BASE ================= */
+const KEY='vida2027';
+const PIL=[
+ {id:'saude',n:'Saúde',t:'Construir energia e vitalidade',d:'Construir um corpo mais forte, ativo e saudável. Recuperar minha energia, melhorar meu condicionamento e desenvolver uma rotina sustentável de cuidado.',c:'#8b9b7c',i:'🌿'},
+ {id:'carreira',n:'Carreira',t:'Transformar competência em reconhecimento e oportunidade',d:'Deixar de apenas ser reconhecida pela minha capacidade de entregar e passar a posicionar meu trabalho, minha expertise e minha liderança para alcançar um novo patamar profissional.',c:'#2f4a3c',i:'💼'},
+ {id:'estudos',n:'Estudos',t:'Construir um projeto intelectual que tenha futuro',d:'Construir uma base teórica sólida, aprofundar meu conhecimento e desenvolver meu projeto de pesquisa para o mestrado.',c:'#b59a6d',i:'📚'},
+ {id:'financas',n:'Finanças',t:'Assumir o controle e construir patrimônio',d:'Sair do modo de administrar urgências e entrar no modo de construir segurança e patrimônio.',c:'#a58b5e',i:'🪙'},
+ {id:'emocional',n:'Vida emocional',t:'Autonomia, limites e relações recíprocas',d:'Cuidar sem me sacrificar. Amar sem me abandonar. Estar presente sem assumir o papel de responsável por tudo.',c:'#bf7b64',i:'🕊️'},
+ {id:'aventura',n:'Aventura e criatividade',t:'Expandir a vida para além das obrigações',d:'Viajar, explorar, criar, conhecer e viver experiências que me façam sentir viva.',c:'#d9aa9c',i:'🧭'}];
+// [nome, prazo, prioridade, etapas]
+const SEED={
+ saude:[['Manter atividade física durante o ano'],['Consolidar rotina de 3 a 4 treinos semanais, evoluindo gradualmente'],['Melhorar condicionamento cardiovascular e força'],['Priorizar sono e qualidade do descanso'],['Fazer acompanhamento preventivo da saúde','2027-06-30'],['Buscar evolução de peso e composição corporal de forma gradual e saudável (se ainda fizer sentido)','2027-12-31','baixa']],
+ carreira:[['Definir o próximo nível profissional que desejo alcançar','2027-03-31'],['Buscar promoção, posição de maior responsabilidade ou oportunidade melhor','2027-12-31'],['Atualizar CV e LinkedIn até março','2027-03-31'],['Identificar oportunidades externas sem agir impulsivamente'],['Desenvolver ao menos uma competência técnica ou estratégica de alto valor'],['Registrar projetos, resultados, indicadores e impactos do meu trabalho'],['Participar de eventos, ampliar networking e visibilidade','2027-12-31','média']],
+ estudos:[['Consolidar a base teórica necessária para o mestrado'],['Construir uma rotina de leitura acadêmica (mín. 2 textos/mês)'],['Estudar sociologia clássica e contemporânea'],['Desenvolver o tema e a pergunta central da pesquisa','2027-06-30'],['Produzir fichamentos (1 por texto)'],['Elaborar uma versão estruturada do projeto'],['Projeto Mestrado — etapas','2027-12-31','alta',['Definição do tema','Delimitação do problema','Pergunta de pesquisa','Revisão bibliográfica','Referencial teórico','Metodologia','Estrutura do projeto','Revisão','Preparação para seleção','Inscrição','Entrevista / etapas do processo seletivo']],['Preparar-me para o processo seletivo de mestrado em 2027']],
+ financas:[['Fazer diagnóstico financeiro completo','2027-03-31','alta'],['Criar plano de redução ou negociação das dívidas'],['Construir ou fortalecer reserva de emergência'],['Criar orçamento mensal realista'],['Reduzir gastos impulsivos'],['Destinar recursos a viagens e projetos'],['Avaliar possibilidades de aumento de renda']],
+ emocional:[['Não assumir responsabilidade pelas emoções e problemas de outras pessoas'],['Parar de medir meu valor pela quantidade de pessoas que precisam de mim'],['Praticar limites sem justificar excessivamente'],['Não insistir em relações que exigem que eu me abandone'],['Cultivar relações recíprocas'],['Desenvolver autonomia emocional'],['Ter interesses, atividades e momentos exclusivamente meus']],
+ aventura:[['Realizar pelo menos uma grande viagem ou aventura'],['Experimentar uma atividade nova'],['Desenvolver um hobby criativo'],['Escrever mais'],['Conhecer lugares, pessoas e perspectivas'],['Ter experiências sem relação com trabalho ou obrigação']]};
+const HAB0=[['Exercício físico',3],['Leitura',3],['Estudo',3],['Alongamento',3],['Dormir em horário adequado',5],['Autocuidado',3],['Diário',2]];
+const uid=()=>Math.random().toString(36).slice(2,9);
+function seed(){let id=0;return{goals:PIL.flatMap(p=>SEED[p.id].map(g=>({id:uid(),pil:p.id,name:g[0],desc:'',deadline:g[1]||'2027-12-31',prio:g[2]||'média',status:'não iniciada',progress:0,next:'',start:'',end:'',notes:'',tasks:(g[3]||[]).map(t=>({t,done:false})),hist:[]}))),
+ habits:HAB0.map(h=>({id:uid(),name:h[0],target:h[1]})),hl:{},months:{},quarters:{},journal:[],recs:[]}}
+let S=JSON.parse(localStorage.getItem(KEY)||'null')||seed();
+const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
+/* ================= UTILIDADES ================= */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const TODAY=iso(new Date());
+const MES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const fd=d=>d?d.split('-').reverse().join('/'):'';
+const brl=v=>(+v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),1800)};
+const P=id=>PIL.find(p=>p.id===id)||PIL[0];
+const gp=g=>g.tasks&&g.tasks.length?Math.round(g.tasks.filter(t=>t.done).length/g.tasks.length*100):+g.progress||0;
+const late=g=>g.status!=='concluída'&&g.deadline&&g.deadline<TODAY;
+const avg=a=>a.length?Math.round(a.reduce((x,y)=>x+y,0)/a.length):0;
+const pilProg=id=>avg(S.goals.filter(g=>g.pil===id).map(gp));
+const mondayOf=(off=0)=>{const d=new Date();d.setDate(d.getDate()-((d.getDay()+6)%7)+off*7);return d};
+const weekDates=off=>[...Array(7)].map((_,i)=>{const d=mondayOf(off);d.setDate(d.getDate()+i);return iso(d)});
+const monthKey=()=>TODAY.startsWith('2027')?TODAY.slice(0,7):'2027-01';
+const phase=()=>TODAY<'2027-03-30'?7:8;
+const yearPct=()=>{const a=new Date('2027-01-01'),b=new Date('2027-12-31'),n=new Date();return Math.max(0,Math.min(100,Math.round((n-a)/(b-a)*100)))};
+const activeDays=()=>{const s=new Set();S.recs.forEach(r=>r.date&&s.add(r.date));S.journal.forEach(j=>s.add(j.date));Object.values(S.hl).forEach(o=>Object.keys(o).forEach(d=>s.add(d)));return s.size};
+const bars=(vals,labs,fmt=v=>v)=>{const m=Math.max(1,...vals.map(Math.abs));return`<div class="ch">${vals.map((v,i)=>`<div title="${esc(fmt(v))}"><b class="${v<0?'neg':''}" style="height:${Math.abs(v)/m*85}%"></b>${labs[i]}</div>`).join('')}</div>`};
+/* ================= FORMULÁRIO MODAL GENÉRICO ================= */
+// campos: [chave, rótulo, tipo, opções, obrigatório]
+function openForm(title,fields,v,cb){
+ const inp=([k,l,t,o,req])=>{const val=esc(v[k]??'');
+  const el=t==='textarea'?`<textarea name="${k}">${val}</textarea>`:t==='select'?`<select name="${k}">${o.map(x=>{const[a,b]=Array.isArray(x)?x:[x,x];return`<option value="${esc(a)}" ${a==v[k]?'selected':''}>${esc(b)}</option>`}).join('')}</select>`
+  :t==='range'?`<input type="range" name="${k}" min="0" max="${o||100}" value="${val||0}">`:`<input type="${t||'text'}" name="${k}" value="${val}" ${t==='number'?'step="any"':''}>`;
+  return`<label>${esc(l)}${req?' *':''}${el}</label>`};
+ $('#md').innerHTML=`<div class="ov"><form class="mod"><h2 style="margin:0">${esc(title)}</h2>${fields.map(inp).join('')}<div class="row sp"><button type="button" class="btn s" id="cx">Cancelar</button><button class="btn">Salvar</button></div></form></div>`;
+ $('#cx').onclick=()=>$('#md').innerHTML='';
+ $('.mod').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),o={};
+  for(const[k,l,,,req] of fields){o[k]=(f.get(k)||'').toString().trim();if(req&&!o[k]){toast('Preencha: '+l);return}}
+  cb(o);save();$('#md').innerHTML='';toast('Salvo ✓');render()}}
+/* ================= REGISTROS POR PILAR (trackers) ================= */
+const sel=(...a)=>a;
+const R={
+ saude:{l:'Treinos',b:'Registrar treino',f:[['date','Data','date',0,1],['tipo','Atividade','text',0,1],['min','Duração (minutos)','number'],['int','Intensidade (opcional)','select',['','leve','moderada','intensa']],['obs','Observações','textarea']],t:r=>`${r.tipo} · ${r.min||0} min${r.int?' · '+r.int:''}`,v:r=>+r.min||0,u:' min',h:'Minutos ativos por mês'},
+ carreira:{l:'Portfólio de conquistas 2027',b:'Nova conquista',f:[['title','Título','text',0,1],['date','Data','date',0,1],['ctx','Contexto','textarea'],['fiz','O que eu fiz','textarea'],['res','Resultado','textarea'],['imp','Impacto','textarea'],['comp','Competências demonstradas','text']],t:r=>r.title,v:()=>1,u:'',h:'Conquistas por mês'},
+ estudos:{l:'Leituras e estudos',b:'Registrar leitura',f:[['title','Título','text',0,1],['aut','Autor','text'],['tema','Tema','text'],['date','Data','date',0,1],['st','Status','select',['planejado','lendo','lido','fichado']],['h','Horas estudadas','number'],['nota','Avaliação pessoal (0–10, opcional)','number'],['ideias','Principais ideias / notas','textarea'],['tags','Tags (separadas por vírgula)','text']],t:r=>`${r.title} — ${r.aut||'s/ autor'} (${r.st})`,v:()=>1,u:' texto(s)',h:'Leituras por mês (meta: 2)'},
+ financas:{l:'Lançamentos',b:'Novo lançamento',f:[['date','Data','date',0,1],['tipo','Tipo','select',['receita','despesa','aporte']],['cat','Categoria','select',['Moradia','Alimentação','Saúde','Pets','Transporte','Lazer','Viagens','Estudos','Compras','Dívidas','Investimentos','Outros']],['valor','Valor (R$)','number',0,1],['desc','Descrição','text']],t:r=>`${r.tipo} · ${r.cat} · ${brl(r.valor)} ${r.desc?'— '+r.desc:''}`,v:r=>r.tipo==='receita'?+r.valor:-(+r.valor),u:'',h:'Saldo do mês (receitas − despesas − aportes)'},
+ emocional:{l:'Check-ins emocionais',b:'Novo check-in',f:[['date','Data','date',0,1],['humor','Humor (1–10)','range',10],['en','Energia (1–10)','range',10],['ans','Ansiedade/estresse (1–10, opcional)','number'],['bem','O que me fez bem hoje?','textarea'],['dren','O que drenou minha energia?','textarea'],['eu','Algo que fiz por mim','text'],['lim','Algum limite que consegui estabelecer?','text'],['prec','O que preciso neste momento?','textarea']],t:r=>`Humor ${r.humor} · Energia ${r.en}${r.bem?' — '+r.bem:''}`,v:r=>+r.humor||0,avg:1,u:'',h:'Humor médio por mês (1–10)'},
+ aventura:{l:'2027 — Things that made me feel alive',b:'Nova memória',f:[['title','Título','text',0,1],['cat','Categoria','select',['Viagem','Passeio','Experiência nova','Evento','Livro','Filme','Show','Atividade criativa','Momento memorável','Alegria']],['date','Data','date',0,1],['desc','Descrição','textarea'],['nota','Nota da experiência (opcional)','number'],['sent','Como me senti?','text']],t:r=>`${r.title} (${r.cat})`,v:()=>1,u:'',h:'Experiências por mês'}};
+function recChart(p){const d=R[p],rs=S.recs.filter(r=>r.p===p&&(r.date||'').startsWith('2027'));
+ const vals=MES.map((_,i)=>{const k='2027-'+String(i+1).padStart(2,'0'),a=rs.filter(r=>r.date.startsWith(k));if(p==='financas')return a.reduce((s,r)=>s+(r.tipo==='receita'?+r.valor:-(+r.valor)),0);const x=a.map(d.v);return d.avg?(x.length?+(x.reduce((s,y)=>s+y,0)/x.length).toFixed(1):0):x.reduce((s,y)=>s+y,0)});
+ return`<p class="sm">${d.h} — apenas registros datados em 2027</p>`+bars(vals,MES.map(m=>m[0]),v=>String(v))}
+function recPanel(p){const d=R[p],rs=S.recs.filter(r=>r.p===p).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+ let extra='';
+ if(p==='financas'){const mk=monthKey(),a=S.recs.filter(r=>r.p==='financas'&&(r.date||'').startsWith(mk)),s=t=>a.filter(r=>r.tipo===t).reduce((x,r)=>x+ +r.valor,0);
+  extra=`<div class="row" style="margin:10px 0"><span class="tag">Receitas ${brl(s('receita'))}</span><span class="tag">Despesas ${brl(s('despesa'))}</span><span class="tag">Aportes ${brl(s('aporte'))}</span><span class="tag neu">Saldo ${brl(s('receita')-s('despesa')-s('aporte'))}</span><span class="sm">(${MES[+mk.slice(5)-1]})</span></div>`}
+ const item=r=>`<div class="row sp" style="padding:8px 0;border-top:1px solid var(--sand)"><div><span class="sm">${fd(r.date)}</span> ${esc(d.t(r))}${r.obs||r.ideias||r.res?`<div class="sm">${esc(r.obs||r.ideias||r.res)}</div>`:''}</div><div><button class="btn t xs" data-a="redit" data-id="${r.id}">Editar</button><button class="btn t xs" data-a="rdel" data-id="${r.id}">Excluir</button></div></div>`;
+ const body=p==='aventura'?`<div class="scrap">${rs.map(r=>`<div class="card"><div class="sm">${fd(r.date)} · ${esc(r.cat)}</div><h3>${esc(r.title)}</h3><p>${esc(r.desc)}</p>${r.sent?`<p class="sm">Senti: <i>${esc(r.sent)}</i></p>`:''}<button class="btn t xs" data-a="redit" data-id="${r.id}">Editar</button><button class="btn t xs" data-a="rdel" data-id="${r.id}">Excluir</button></div>`).join('')}</div>`:rs.map(item).join('');
+ return`<h2>${d.l}</h2><div class="card"><div class="row sp"><span class="sm">${rs.length} registro(s)</span><button class="btn" data-a="rnew" data-p="${p}">+ ${d.b}</button></div>${extra}${recChart(p)}<div style="margin-top:14px">${body||'<p class="empty">Nada registrado ainda — comece quando quiser.</p>'}</div></div>`}
+/* ================= VIEWS ================= */
+let V='dash',PF='',FL='todas',MK=monthKey(),WO=0,JQ='',JT='',JM='';
+const MSG=['Cada movimento conta.','Você está construindo consistência, não perfeição.','Descansar também faz parte do processo.','Você não precisa resolver tudo hoje.','Um dia difícil não anula sua evolução.','Seu valor não depende da sua utilidade para alguém.'];
+function vDash(){
+ const ph=phase(),gs=S.goals,wk=weekDates(0),tot=S.habits.reduce((s,h)=>s+ +h.target,0),done=S.habits.reduce((s,h)=>s+Math.min(+h.target,wk.filter(d=>(S.hl[h.id]||{})[d]).length),0);
+ const nxt=gs.filter(g=>g.status!=='concluída'&&g.deadline).sort((a,b)=>a.deadline.localeCompare(b.deadline))[0];
+ const step=gs.filter(g=>g.next&&g.status!=='concluída').sort((a,b)=>['alta','média','baixa'].indexOf(a.prio)-['alta','média','baixa'].indexOf(b.prio))[0];
+ const mo=S.months[monthKey()]||{};const foco=[mo.p1,mo.p2,mo.p3].filter(Boolean);
+ const wins=[...S.recs.map(r=>({d:r.date,t:P(r.p).i+' '+R[r.p].t(r)})),...S.journal.filter(j=>(j.tags||'').toLowerCase().includes('vitória')).map(j=>({d:j.date,t:'✍️ '+j.text.slice(0,70)})),...gs.filter(g=>g.status==='concluída').map(g=>({d:g.end||TODAY,t:'✅ Meta concluída: '+g.name})),...S.habits.flatMap(h=>Object.keys(S.hl[h.id]||{}).map(d=>({d,t:'🌱 '+h.name})))].filter(w=>w.d).sort((a,b)=>b.d.localeCompare(a.d)).slice(0,6);
+ return`<div class="hero"><div class="sm" style="color:#e9dfca;position:relative">${new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div><h1>2027 — A Vida que Quero Construir</h1><p style="margin-top:8px"><i>Não vou apenas cuidar da vida que existe. Vou construir a vida que desejo.</i></p><span class="pill">Ano Pessoal ${ph} · ${ph===7?'1 jan – 29 mar':'30 mar – 31 dez'}</span><div class="ph">${ph===7?'Você não está atrasada. Está construindo suas bases.':'É hora de transformar intenção em realização.'}</div><p class="sm" style="color:#e9dfca;margin-top:10px;position:relative">${MSG[Math.floor(Date.now()/864e5)%MSG.length]}</p></div>
+ <div class="grid g3">
+ <div class="card"><div class="sm">Progresso das metas</div><div class="big">${avg(gs.map(gp))}%</div><div class="bar"><i style="width:${avg(gs.map(gp))}%"></i></div></div>
+ <div class="card"><div class="sm">Metas</div><div class="big">${gs.filter(g=>g.status==='concluída').length} <span class="sm">concluídas</span></div><div class="sm">${gs.filter(g=>g.status==='em andamento').length} em andamento · ${gs.length} no total</div></div>
+ <div class="card"><div class="sm">Hábitos nesta semana</div><div class="big">${done}/${tot}</div><div class="bar"><i style="width:${tot?done/tot*100:0}%"></i></div></div>
+ <div class="card"><div class="sm">Dias com atividade registrada</div><div class="big">${activeDays()}</div></div>
+ <div class="card"><div class="sm">Progresso do ano</div><div class="big">${yearPct()}%</div><div class="bar"><i style="width:${yearPct()}%;background:var(--terra)"></i></div></div>
+ <div class="card"><div class="sm">Próximo marco</div><div style="margin-top:6px">${nxt?`<b>${esc(nxt.name)}</b><div class="sm">até ${fd(nxt.deadline)}</div>`:'<span class="empty">Defina prazos nas metas.</span>'}</div></div></div>
+ <h2>Progresso por pilar</h2><div class="grid g3">${PIL.map(p=>{const n=S.goals.filter(g=>g.pil===p.id),pr=pilProg(p.id);return`<div class="card pc" style="--c:${p.c}" data-a="pil" data-id="${p.id}"><div style="font-size:1.6rem">${p.i}</div><h3>${p.n}</h3><div class="bar"><i style="width:${pr}%;background:${p.c}"></i></div><div class="sm">${pr}% · ${n.length} metas · ${pr===0?'a começar':pr===100?'concluído':'em movimento'}</div></div>`}).join('')}</div>
+ <div class="grid g2"><div><h2>Foco atual</h2><div class="card">${foco.length?foco.map(f=>`<p>◦ ${esc(f)}</p>`).join(''):'<p class="empty">Defina até 3 prioridades em Planejamento mensal.</p>'}</div></div>
+ <div><h2>Meu próximo passo</h2><div class="card">${step?`<div class="sm">${esc(step.name)}</div><h3 style="margin-top:6px">${esc(step.next)}</h3>`:'<p class="empty">Escolha uma meta e escreva uma próxima ação pequena.</p>'}</div></div></div>
+ <h2>Pequenas vitórias</h2><div class="card">${wins.length?wins.map(w=>`<p><span class="sm">${fd(w.d)}</span> ${esc(w.t)}</p>`).join(''):'<p class="empty">Suas conquistas aparecerão aqui conforme você registrar.</p>'}</div>`}
+function goalCard(g){const p=P(g.pil),pr=gp(g),hasT=g.tasks&&g.tasks.length;
+ return`<div class="card" style="border-left:6px solid ${p.c}"><div class="row sp"><h3 style="margin:0">${esc(g.name)}</h3><span class="tag">${p.i} ${p.n}</span></div>
+ <div class="row" style="margin:6px 0"><span class="tag">${g.status}</span><span class="tag">prioridade ${g.prio}</span>${g.deadline?`<span class="tag ${late(g)?'neu':''}">prazo ${fd(g.deadline)}${late(g)?' · pode redefinir':''}</span>`:''}</div>
+ ${g.desc?`<p class="sm">${esc(g.desc)}</p>`:''}
+ <div class="bar"><i style="width:${pr}%;background:${p.c}"></i></div>
+ ${hasT?`<div class="sm">${pr}% · por etapas</div>${g.tasks.map((t,i)=>`<label class="tk"><input type="checkbox" data-in="gtask" data-id="${g.id}" data-i="${i}" ${t.done?'checked':''}> <span style="${t.done?'text-decoration:line-through;opacity:.6':''}">${esc(t.t)}</span></label>`).join('')}`
+ :`<div class="row"><input type="range" min="0" max="100" value="${pr}" data-in="gprog" data-id="${g.id}" style="flex:1;padding:0;border:0"><b>${pr}%</b></div>`}
+ ${g.next?`<p style="margin-top:8px">➜ <b>Próxima ação:</b> ${esc(g.next)}</p>`:''}${g.notes?`<p class="sm">${esc(g.notes)}</p>`:''}
+ ${g.hist.length?`<details class="sm"><summary>Histórico</summary>${g.hist.slice(-6).reverse().map(h=>`<div>${fd(h.d)} — ${h.p}% · ${h.s}</div>`).join('')}</details>`:''}
+ <div style="margin-top:8px"><button class="btn s xs" data-a="gedit" data-id="${g.id}">Editar</button> <button class="btn t xs" data-a="gdel" data-id="${g.id}">Excluir</button></div></div>`}
+function vMetas(){
+ const F={todas:g=>1,alta:g=>g.prio==='alta',média:g=>g.prio==='média',baixa:g=>g.prio==='baixa','em andamento':g=>g.status==='em andamento',concluídas:g=>g.status==='concluída','prazo a redefinir':late};
+ const list=S.goals.filter(g=>(!PF||g.pil===PF)&&F[FL](g));const p=PF&&P(PF);
+ return`<div class="row sp"><h1>Minhas metas</h1><button class="btn" data-a="gnew">+ Nova meta</button></div>
+ <div class="row" style="margin:14px 0"><button class="chip ${!PF?'on':''}" data-a="pil" data-id="">Todos os pilares</button>${PIL.map(x=>`<button class="chip ${PF===x.id?'on':''}" data-a="pil" data-id="${x.id}">${x.i} ${x.n}</button>`).join('')}</div>
+ <div class="row" style="margin-bottom:18px">${Object.keys(F).map(k=>`<button class="chip ${FL===k?'on':''}" data-a="fl" data-id="${k}">${k}</button>`).join('')}</div>
+ ${p?`<div class="card" style="margin-bottom:18px;border-top:5px solid ${p.c}"><h2 style="margin:0 0 6px">${p.t}</h2><p><i>${p.d}</i></p></div>`:''}
+ <div class="grid g2">${list.map(goalCard).join('')||'<p class="empty">Nenhuma meta neste filtro.</p>'}</div>${PF?recPanel(PF):''}`}
+function vHab(){
+ const wk=weekDates(WO),L=['S','T','Q','Q','S','S','D'];
+ const rate=h=>{let c=0,t=0;for(let i=-3;i<=0;i++){c+=Math.min(+h.target,weekDates(i).filter(d=>(S.hl[h.id]||{})[d]).length);t+=+h.target}return t?Math.round(c/t*100):0};
+ return`<div class="row sp"><h1>Hábitos</h1><button class="btn" data-a="hnew">+ Novo hábito</button></div>
+ <p class="sm" style="margin:6px 0 14px">Sem sequências a perder: o histórico fica sempre com você. Semanas difíceis fazem parte.</p>
+ <div class="row"><button class="btn s xs" data-a="wk" data-id="-1">‹ semana anterior</button><b>${fd(wk[0])} – ${fd(wk[6])}</b><button class="btn s xs" data-a="wk" data-id="1">próxima ›</button></div><br>
+ <div class="grid g2">${S.habits.map(h=>{const d=S.hl[h.id]||{},n=wk.filter(x=>d[x]).length,hist=[...Array(8)].map((_,i)=>weekDates(i-7).filter(x=>d[x]).length);
+ return`<div class="card"><div class="row sp"><h3 style="margin:0">${esc(h.name)}</h3><span class="tag">meta ${h.target}x/semana</span></div>
+ <div class="wk" style="margin:12px 0">${wk.map((x,i)=>`<div>${L[i]}<button class="dy ${d[x]?'on':''}" style="width:100%" data-a="htog" data-id="${h.id}" data-d="${x}">${+x.slice(8)}</button></div>`).join('')}</div>
+ <div class="sm">${n} de ${h.target} nesta semana · cumprimento (4 semanas): ${rate(h)}% · total: ${Object.keys(d).length}</div>
+ ${bars(hist,['','','','','','','',''].map((_,i)=>'s'+(i+1)),v=>v+' dia(s)')}
+ <div><button class="btn s xs" data-a="hedit" data-id="${h.id}">Editar</button> <button class="btn t xs" data-a="hdel" data-id="${h.id}">Excluir</button></div></div>`}).join('')}</div>`}
+const MF1=[['intent','Qual é a minha intenção para este mês?'],['p1','Prioridade 1'],['p2','Prioridade 2'],['p3','Prioridade 3'],['meta','Qual meta merece mais atenção?'],['sa','O que quero fazer por minha saúde?'],['ca','Próximo passo na carreira?'],['es','O que quero estudar?'],['fi','Qual é meu foco financeiro?'],['eu','O que quero fazer por mim?'],['ex','Que experiência quero viver?'],['exp','Expectativas']];
+const MF2=[['c1','O que conquistei?'],['c2','O que ficou pendente?'],['c3','O que aprendi?'],['c4','Qual foi minha maior vitória?'],['c5','O que me trouxe alegria?'],['c6','O que drenou minha energia?'],['c7','O que preciso ajustar?'],['c8','O que quero levar para o próximo mês?']];
+function vMes(){const m=S.months[MK]||{},tk=m.tasks||[];
+ const rs=S.recs.filter(r=>(r.date||'').startsWith(MK)),hc=S.habits.reduce((s,h)=>s+Object.keys(S.hl[h.id]||{}).filter(d=>d.startsWith(MK)).length,0);
+ const fld=([k,l])=>`<label>${l}<${k[0]==='p'&&k.length==2?'input':'textarea'} data-in="mf" data-k="${k}" ${k[0]==='p'&&k.length==2?`value="${esc(m[k])}"`:`>${esc(m[k])}</textarea`}${k[0]==='p'&&k.length==2?'>':'>'}</label>`;
+ return`<h1>Planejamento mensal</h1><div class="row" style="margin:14px 0">${MES.map((n,i)=>{const k='2027-'+String(i+1).padStart(2,'0');return`<button class="chip ${MK===k?'on':''}" data-a="mon" data-id="${k}">${n.slice(0,3)}</button>`}).join('')}</div>
+ <div class="grid g2"><div class="card"><h2 style="margin-top:0">Início do mês — ${MES[+MK.slice(5)-1]}</h2><div class="grid">${MF1.map(fld).join('')}</div></div>
+ <div><div class="card"><h3>Tarefas do mês</h3>${tk.map((t,i)=>`<div class="tk"><input type="checkbox" data-in="mtk" data-i="${i}" ${t.d?'checked':''}><span style="flex:1;${t.d?'text-decoration:line-through;opacity:.6':''}">${esc(t.t)}</span><button class="btn t xs" data-a="mtdel" data-id="${i}">×</button></div>`).join('')||'<p class="empty">Sem tarefas ainda.</p>'}<div class="row" style="margin-top:8px"><input id="nt" placeholder="Nova tarefa" style="flex:1"><button class="btn xs" data-a="mtadd">Adicionar</button></div></div>
+ <div class="card" style="margin-top:18px"><h2 style="margin-top:0">Fechamento do mês</h2><div class="grid">${MF2.map(fld).join('')}</div>
+ <h3 style="margin-top:16px">Resumo do que você registrou</h3><div class="row"><span class="tag">${rs.length} registro(s)</span><span class="tag">${hc} hábito(s) marcados</span>${PIL.map(p=>{const n=rs.filter(r=>r.p===p.id).length;return n?`<span class="tag">${p.i} ${n}</span>`:''}).join('')}<span class="tag">${S.journal.filter(j=>j.date.startsWith(MK)).length} reflexão(ões)</span></div></div></div></div>`}
+const QT=[['Q1','Jan–Mar','Preparação, introspecção, organização e clareza',1],['Q2','Abr–Jun','Início da execução, posicionamento e movimento',4],['Q3','Jul–Set','Consolidação, conquistas e crescimento',7],['Q4','Out–Dez','Materialização, resultados e avaliação',10]];
+function vTri(){return`<h1>Revisão trimestral</h1><div class="grid g2" style="margin-top:16px">${QT.map(([q,r,t,m0])=>{const q0=S.quarters[q]||{},inQ=d=>d&&d.startsWith('2027')&&+d.slice(5,7)>=m0&&+d.slice(5,7)<m0+3,rs=S.recs.filter(x=>inQ(x.date)),
+ hc=S.habits.reduce((s,h)=>s+Object.keys(S.hl[h.id]||{}).filter(inQ).length,0),fin=rs.filter(x=>x.p==='financas'),sal=fin.reduce((s,x)=>s+(x.tipo==='receita'?+x.valor:x.tipo==='despesa'?-x.valor:0),0);
+ const fl=(k,l,t)=>`<label>${l}${t==='n'?`<input type="number" min="0" max="10" data-in="qf" data-q="${q}" data-k="${k}" value="${esc(q0[k])}">`:`<textarea data-in="qf" data-q="${q}" data-k="${k}">${esc(q0[k])}</textarea>`}</label>`;
+ return`<div class="card"><h2 style="margin-top:0">${q} · ${r}</h2><p class="sm"><i>${t}</i></p>
+ <div class="row" style="margin:10px 0"><span class="tag">metas: ${avg(S.goals.map(gp))}% geral</span><span class="tag">${S.goals.filter(g=>g.status==='concluída'&&inQ(g.end)).length} concluída(s)</span><span class="tag">${hc} hábitos marcados</span><span class="tag">${rs.filter(x=>x.p==='saude').length} treinos</span><span class="tag">${rs.filter(x=>x.p==='estudos').length} leituras</span><span class="tag">${rs.filter(x=>x.p==='carreira').length} conquistas</span><span class="tag">${rs.filter(x=>x.p==='aventura').length} experiências</span><span class="tag">saldo ${brl(sal)}</span></div>
+ <div class="grid">${fl('re','Metas abandonadas ou replanejadas')}${fl('ap','Principais aprendizados')}${fl('sat','Satisfação do trimestre (0 a 10)','n')}${fl('pr','Próximas prioridades')}</div></div>`}).join('')}</div>`}
+function vDia(){const tags=['Reflexão','Vitória','Saúde','Carreira','Estudos','Dinheiro','Relações','Alegria','Viagem','Gratidão','Dificuldade'];
+ const l=S.journal.filter(j=>(!JQ||j.text.toLowerCase().includes(JQ.toLowerCase()))&&(!JT||(j.tags||'').toLowerCase().includes(JT.toLowerCase()))&&(!JM||j.date.slice(0,7)===JM)).sort((a,b)=>b.date.localeCompare(a.date));
+ return`<div class="row sp"><h1>Diário</h1><button class="btn" data-a="jnew">+ Nova entrada</button></div><p class="sm">Escreva quando quiser. Sem obrigação diária.</p>
+ <div class="row" style="margin:14px 0"><input data-in="jq" placeholder="Buscar…" value="${esc(JQ)}" style="max-width:240px"><select data-in="jt" style="max-width:180px"><option value="">Todas as tags</option>${tags.map(t=>`<option ${JT===t?'selected':''}>${t}</option>`).join('')}</select><input type="month" data-in="jm" value="${JM}" style="max-width:180px"></div>
+ ${l.map(j=>`<div class="card" style="margin-bottom:14px"><div class="row sp"><b>${fd(j.date)}</b><div>${(j.tags||'').split(',').filter(x=>x.trim()).map(t=>`<span class="tag">${esc(t.trim())}</span> `).join('')}</div></div><p style="white-space:pre-wrap;margin:8px 0">${esc(j.text)}</p><button class="btn s xs" data-a="jedit" data-id="${j.id}">Editar</button> <button class="btn t xs" data-a="jdel" data-id="${j.id}">Excluir</button></div>`).join('')||'<p class="empty">Nenhuma entrada encontrada.</p>'}`}
+function vAno(){const rc=p=>S.recs.filter(r=>r.p===p);
+ const items=[...S.recs.map(r=>({d:r.date,t:P(r.p).i+' '+R[r.p].t(r)})),...S.journal.map(j=>({d:j.date,t:'✍️ '+j.text.slice(0,90)})),...S.goals.filter(g=>g.status==='concluída').map(g=>({d:g.end||TODAY,t:'✅ Meta concluída: '+g.name}))].filter(x=>x.d).sort((a,b)=>b.d.localeCompare(a.d));
+ const ap=rc('financas').filter(r=>r.tipo==='aporte').reduce((s,r)=>s+ +r.valor,0);
+ const st=[['Metas concluídas',S.goals.filter(g=>g.status==='concluída').length],['Conquistas profissionais',rc('carreira').length],['Textos lidos/fichados',rc('estudos').filter(r=>r.st==='lido'||r.st==='fichado').length],['Treinos',rc('saude').length],['Experiências',rc('aventura').length],['Reflexões',S.journal.length],['Aportes',brl(ap)],['Dias com atividade',activeDays()]];
+ let last='';
+ return`<h1>2027: o ano em que construí minha vida</h1><p class="sm">Uma retrospectiva feita só com o que você registrou.</p><div class="grid g3" style="margin:18px 0">${st.map(([l,v])=>`<div class="card"><div class="sm">${l}</div><div class="big">${v}</div></div>`).join('')}</div>
+ <h2>Linha do tempo</h2><div class="tl">${items.map(x=>{const m=x.d.slice(0,7),h=m!==last?`<h3 style="margin-top:14px">${MES[+m.slice(5)-1]} ${m.slice(0,4)}</h3>`:'';last=m;return h+`<div class="it"><span class="sm">${fd(x.d)}</span> ${esc(x.t)}</div>`}).join('')||'<p class="empty">A linha do tempo se constrói com seus registros.</p>'}</div>`}
+/* ================= RENDER / NAV ================= */
+const NAVS=[['dash','🏡 Dashboard'],['metas','🎯 Minhas metas'],['habitos','🌱 Hábitos'],['mes','🗓️ Planejamento mensal'],['tri','🔎 Revisão trimestral'],['diario','✍️ Diário'],['ano','✨ Meu ano']];
+function render(){const y=window.scrollY;
+ $('#nav').innerHTML=`<div class="logo">2027<small>a vida que quero construir</small></div>${NAVS.map(([k,l])=>`<button class="nv ${V===k?'on':''}" data-a="nav" data-id="${k}">${l}</button>`).join('')}<div class="bk"><button class="btn s xs" data-a="exp">⬇ Exportar backup</button><button class="btn s xs" data-a="imp">⬆ Importar backup</button></div>`;
+ $('#app').innerHTML={dash:vDash,metas:vMetas,habitos:vHab,mes:vMes,tri:vTri,diario:vDia,ano:vAno}[V]();window.scrollTo(0,y)}
+/* ================= AÇÕES ================= */
+const GF=()=>[['name','Nome da meta','text',0,1],['desc','Descrição','textarea'],['pil','Pilar','select',PIL.map(p=>[p.id,p.n])],['deadline','Prazo','date'],['prio','Prioridade','select',['alta','média','baixa']],['status','Status','select',['não iniciada','em andamento','pausada','concluída']],['progress','Progresso manual (%)','range'],['next','Próxima ação','text'],['start','Data de início','date'],['end','Data de conclusão','date'],['etapas','Etapas/milestones (uma por linha; se houver, o progresso vem das etapas)','textarea'],['notes','Observações','textarea']];
+function gSave(g,o){const old=gp(g)+g.status;Object.assign(g,o,{progress:+o.progress||0});
+ g.tasks=(o.etapas||'').split('\n').map(s=>s.trim()).filter(Boolean).map(t=>({t,done:!!(g.tasks||[]).find(x=>x.t===t&&x.done)}));delete g.etapas;
+ if(g.status==='concluída'){if(!g.end)g.end=TODAY;if(!g.tasks.length)g.progress=100}else if(gp(g)>0&&g.status==='não iniciada')g.status='em andamento';
+ if(!g.hist)g.hist=[];if(old!==gp(g)+g.status)g.hist.push({d:TODAY,p:gp(g),s:g.status})}
+function act(a,d){
+ const A={
+  nav:()=>{V=d.id;if(V==='metas'){}},
+  pil:()=>{PF=d.id;V='metas'},fl:()=>FL=d.id,wk:()=>WO+=+d.id,mon:()=>MK=d.id,
+  gnew:()=>{openForm('Nova meta',GF(),{pil:PF||'saude',prio:'média',status:'não iniciada',deadline:'2027-12-31',progress:0},o=>{const g={id:uid(),tasks:[],hist:[]};gSave(g,o);S.goals.push(g)});return 1},
+  gedit:()=>{const g=S.goals.find(x=>x.id===d.id);openForm('Editar meta',GF(),{...g,etapas:g.tasks.map(t=>t.t).join('\n')},o=>gSave(g,o));return 1},
+  gdel:()=>{if(confirm('Excluir esta meta? Isso não pode ser desfeito.')){S.goals=S.goals.filter(x=>x.id!==d.id);toast('Meta excluída')}},
+  rnew:()=>{const p=d.p;openForm(R[p].b,R[p].f,{date:TODAY,humor:5,en:5,st:'planejado'},o=>S.recs.push({id:uid(),p,...o}));return 1},
+  redit:()=>{const r=S.recs.find(x=>x.id===d.id);openForm('Editar registro',R[r.p].f,r,o=>Object.assign(r,o));return 1},
+  rdel:()=>{if(confirm('Excluir este registro?')){S.recs=S.recs.filter(x=>x.id!==d.id);toast('Excluído')}},
+  hnew:()=>{openForm('Novo hábito',[['name','Nome','text',0,1],['target','Meta semanal (dias)','select',[1,2,3,4,5,6,7]]],{target:3},o=>S.habits.push({id:uid(),...o}));return 1},
+  hedit:()=>{const h=S.habits.find(x=>x.id===d.id);openForm('Editar hábito',[['name','Nome','text',0,1],['target','Meta semanal (dias)','select',[1,2,3,4,5,6,7]]],h,o=>Object.assign(h,o));return 1},
+  hdel:()=>{if(confirm('Excluir este hábito e seu histórico?')){S.habits=S.habits.filter(x=>x.id!==d.id);delete S.hl[d.id]}},
+  htog:()=>{const o=S.hl[d.id]=S.hl[d.id]||{};o[d.d]?delete o[d.d]:o[d.d]=1},
+  jnew:()=>{openForm('Nova entrada',[['date','Data','date',0,1],['text','Texto','textarea',0,1],['tags','Tags (separadas por vírgula)','text']],{date:TODAY},o=>S.journal.push({id:uid(),...o}));return 1},
+  jedit:()=>{const j=S.journal.find(x=>x.id===d.id);openForm('Editar entrada',[['date','Data','date',0,1],['text','Texto','textarea',0,1],['tags','Tags (separadas por vírgula)','text']],j,o=>Object.assign(j,o));return 1},
+  jdel:()=>{if(confirm('Excluir esta entrada?'))S.journal=S.journal.filter(x=>x.id!==d.id)},
+  mtadd:()=>{const t=$('#nt').value.trim();if(!t){toast('Escreva a tarefa');return 1}(S.months[MK]=S.months[MK]||{}).tasks=[...(S.months[MK].tasks||[]),{t,d:false}]},
+  mtdel:()=>S.months[MK].tasks.splice(+d.id,1),
+  exp:()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,1)],{type:'application/json'}));a.download='backup-2027-'+TODAY+'.json';a.click();toast('Backup exportado');return 1},
+  imp:()=>{$('#imp').click();return 1}};
+ if(!A[a]())save(),render();else if(a==='exp'||a==='imp'||a==='mtadd'&&0);}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b){const r=act0(b);}});
+function act0(b){const a=b.dataset.a,d=b.dataset;const res=act2(a,d);return res}
+function act2(a,d){const before=$('#md').innerHTML;act(a,d)}
+/* campos que salvam ao alterar */
+document.addEventListener('change',e=>{const t=e.target,d=t.dataset;if(!d.in)return;
+ if(d.in==='gprog'){const g=S.goals.find(x=>x.id===d.id);g.progress=+t.value;if(g.progress>0&&g.status==='não iniciada')g.status='em andamento';g.hist.push({d:TODAY,p:g.progress,s:g.status})}
+ else if(d.in==='gtask'){const g=S.goals.find(x=>x.id===d.id);g.tasks[+d.i].done=t.checked;if(gp(g)>0&&g.status==='não iniciada')g.status='em andamento';g.hist.push({d:TODAY,p:gp(g),s:g.status})}
+ else if(d.in==='mf'){(S.months[MK]=S.months[MK]||{})[d.k]=t.value;toast('Salvo ✓');save();return}
+ else if(d.in==='mtk'){S.months[MK].tasks[+d.i].d=t.checked}
+ else if(d.in==='qf'){(S.quarters[d.q]=S.quarters[d.q]||{})[d.k]=t.value;toast('Salvo ✓');save();return}
+ else if(d.in==='jq')JQ=t.value;else if(d.in==='jt')JT=t.value;else if(d.in==='jm')JM=t.value;
+ save();render();if(d.in==='jq'){const i=document.querySelector('[data-in=jq]');i.focus();i.setSelectionRange(99,99)}});
+$('#imp').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();
+ r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.goals)||!Array.isArray(d.habits))throw 0;
+  if(confirm('Importar este backup vai SUBSTITUIR os dados atuais. Continuar?')){S=d;S.recs=S.recs||[];S.journal=S.journal||[];S.hl=S.hl||{};S.months=S.months||{};S.quarters=S.quarters||{};save();render();toast('Backup restaurado ✓')}}
+  catch(_){toast('Arquivo de backup inválido')}e.target.value=''};r.readAsText(f)});
+render();
+</script>
+</body>
+</html>
